@@ -1,0 +1,259 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> bucle
+Rule 2     bucle -> FOR PAREN declaracion SEMICOLON condicion SEMICOLON incremento PAREN BRACE cuerpo BRACE
+Rule 3     declaracion -> INT ID OP NUM
+Rule 4     condicion -> ID OP NUM
+Rule 5     incremento -> ID INCREMENT
+Rule 6     cuerpo -> PRINT PAREN STRING PLUS ID PAREN SEMICOLON
+
+Terminals, with rules where they appear
+
+BRACE                : 2 2
+FOR                  : 2
+ID                   : 3 4 5 6
+INCREMENT            : 5
+INT                  : 3
+NUM                  : 3 4
+OP                   : 3 4
+PAREN                : 2 2 6 6
+PLUS                 : 6
+PRINT                : 6
+SEMICOLON            : 2 2 6
+STRING               : 6
+error                : 
+
+Nonterminals, with rules where they appear
+
+bucle                : 1
+condicion            : 2
+cuerpo               : 2
+declaracion          : 2
+incremento           : 2
+programa             : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . bucle
+    (2) bucle -> . FOR PAREN declaracion SEMICOLON condicion SEMICOLON incremento PAREN BRACE cuerpo BRACE
+
+    FOR             shift and go to state 3
+
+    programa                       shift and go to state 1
+    bucle                          shift and go to state 2
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> bucle .
+
+    $end            reduce using rule 1 (programa -> bucle .)
+
+
+state 3
+
+    (2) bucle -> FOR . PAREN declaracion SEMICOLON condicion SEMICOLON incremento PAREN BRACE cuerpo BRACE
+
+    PAREN           shift and go to state 4
+
+
+state 4
+
+    (2) bucle -> FOR PAREN . declaracion SEMICOLON condicion SEMICOLON incremento PAREN BRACE cuerpo BRACE
+    (3) declaracion -> . INT ID OP NUM
+
+    INT             shift and go to state 6
+
+    declaracion                    shift and go to state 5
+
+state 5
+
+    (2) bucle -> FOR PAREN declaracion . SEMICOLON condicion SEMICOLON incremento PAREN BRACE cuerpo BRACE
+
+    SEMICOLON       shift and go to state 7
+
+
+state 6
+
+    (3) declaracion -> INT . ID OP NUM
+
+    ID              shift and go to state 8
+
+
+state 7
+
+    (2) bucle -> FOR PAREN declaracion SEMICOLON . condicion SEMICOLON incremento PAREN BRACE cuerpo BRACE
+    (4) condicion -> . ID OP NUM
+
+    ID              shift and go to state 10
+
+    condicion                      shift and go to state 9
+
+state 8
+
+    (3) declaracion -> INT ID . OP NUM
+
+    OP              shift and go to state 11
+
+
+state 9
+
+    (2) bucle -> FOR PAREN declaracion SEMICOLON condicion . SEMICOLON incremento PAREN BRACE cuerpo BRACE
+
+    SEMICOLON       shift and go to state 12
+
+
+state 10
+
+    (4) condicion -> ID . OP NUM
+
+    OP              shift and go to state 13
+
+
+state 11
+
+    (3) declaracion -> INT ID OP . NUM
+
+    NUM             shift and go to state 14
+
+
+state 12
+
+    (2) bucle -> FOR PAREN declaracion SEMICOLON condicion SEMICOLON . incremento PAREN BRACE cuerpo BRACE
+    (5) incremento -> . ID INCREMENT
+
+    ID              shift and go to state 16
+
+    incremento                     shift and go to state 15
+
+state 13
+
+    (4) condicion -> ID OP . NUM
+
+    NUM             shift and go to state 17
+
+
+state 14
+
+    (3) declaracion -> INT ID OP NUM .
+
+    SEMICOLON       reduce using rule 3 (declaracion -> INT ID OP NUM .)
+
+
+state 15
+
+    (2) bucle -> FOR PAREN declaracion SEMICOLON condicion SEMICOLON incremento . PAREN BRACE cuerpo BRACE
+
+    PAREN           shift and go to state 18
+
+
+state 16
+
+    (5) incremento -> ID . INCREMENT
+
+    INCREMENT       shift and go to state 19
+
+
+state 17
+
+    (4) condicion -> ID OP NUM .
+
+    SEMICOLON       reduce using rule 4 (condicion -> ID OP NUM .)
+
+
+state 18
+
+    (2) bucle -> FOR PAREN declaracion SEMICOLON condicion SEMICOLON incremento PAREN . BRACE cuerpo BRACE
+
+    BRACE           shift and go to state 20
+
+
+state 19
+
+    (5) incremento -> ID INCREMENT .
+
+    PAREN           reduce using rule 5 (incremento -> ID INCREMENT .)
+
+
+state 20
+
+    (2) bucle -> FOR PAREN declaracion SEMICOLON condicion SEMICOLON incremento PAREN BRACE . cuerpo BRACE
+    (6) cuerpo -> . PRINT PAREN STRING PLUS ID PAREN SEMICOLON
+
+    PRINT           shift and go to state 22
+
+    cuerpo                         shift and go to state 21
+
+state 21
+
+    (2) bucle -> FOR PAREN declaracion SEMICOLON condicion SEMICOLON incremento PAREN BRACE cuerpo . BRACE
+
+    BRACE           shift and go to state 23
+
+
+state 22
+
+    (6) cuerpo -> PRINT . PAREN STRING PLUS ID PAREN SEMICOLON
+
+    PAREN           shift and go to state 24
+
+
+state 23
+
+    (2) bucle -> FOR PAREN declaracion SEMICOLON condicion SEMICOLON incremento PAREN BRACE cuerpo BRACE .
+
+    $end            reduce using rule 2 (bucle -> FOR PAREN declaracion SEMICOLON condicion SEMICOLON incremento PAREN BRACE cuerpo BRACE .)
+
+
+state 24
+
+    (6) cuerpo -> PRINT PAREN . STRING PLUS ID PAREN SEMICOLON
+
+    STRING          shift and go to state 25
+
+
+state 25
+
+    (6) cuerpo -> PRINT PAREN STRING . PLUS ID PAREN SEMICOLON
+
+    PLUS            shift and go to state 26
+
+
+state 26
+
+    (6) cuerpo -> PRINT PAREN STRING PLUS . ID PAREN SEMICOLON
+
+    ID              shift and go to state 27
+
+
+state 27
+
+    (6) cuerpo -> PRINT PAREN STRING PLUS ID . PAREN SEMICOLON
+
+    PAREN           shift and go to state 28
+
+
+state 28
+
+    (6) cuerpo -> PRINT PAREN STRING PLUS ID PAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 29
+
+
+state 29
+
+    (6) cuerpo -> PRINT PAREN STRING PLUS ID PAREN SEMICOLON .
+
+    BRACE           reduce using rule 6 (cuerpo -> PRINT PAREN STRING PLUS ID PAREN SEMICOLON .)
+
